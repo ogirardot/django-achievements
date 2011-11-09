@@ -5,6 +5,8 @@ setup(
     version = "0.0.1",
     description = "Django application to deal with achievements and rewards unlocked by users",
     author = "Olivier Girardot",
+    author_email = "ssaboum@gmail.com",
+    url = "https://github.com/ssaboum/django-achievements",
     classifiers = [
         "Programming Language :: Python",
         "License :: OSI Approved :: BSD License",
