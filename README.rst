@@ -43,7 +43,10 @@ Not yet, getting there.
 Installation
 =============
 
-Not yet, will do.
+This package is now uploaded on PyPi so all you need to do is to install it using :
+
+    pip install django-achievements
+
 
 License
 =======
