@@ -38,7 +38,10 @@ If you want you can also customize the application settings these variables in y
 Documentation
 =============
 
-Not yet, getting there.
+The documentation is generated using Sphinx and available on :
+    
+    http://readthedocs.org/docs/django-achievements/en/latest/
+
 
 Installation
 =============
