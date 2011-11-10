@@ -5,8 +5,6 @@
 :Version: 0.0.1 alpha
 :Source: http://github.com/ssaboum/django-achievements/
 
---
-
 django-achievements is an application allowing you to handle 
 Achievements and link them to users. 
 Apart from defining these two objects the projet aims to provide
