@@ -58,8 +58,7 @@ class AchievementEngineConf(AppConf):
         prefix = 'achievement'
 
     def configure_classes(self, value):
-        load_classes(classes=value)
-          
+        pass  
 
 # connect to the end of the syncdb command signal to reload achievements at that time.
 if 'south' in settings.INSTALLED_APPS:
