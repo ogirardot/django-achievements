@@ -2,7 +2,7 @@ from distutils.core import setup
 setup(
     name = "django-achievements",
     packages = ["achievements", "achievements.migrations", "achievements.templatetags"],
-    version = "0.0.4",
+    version = "0.0.5",
     description = "Django application to deal with achievements and rewards unlocked by users",
     author = "Olivier Girardot",
     author_email = "ssaboum@gmail.com",
