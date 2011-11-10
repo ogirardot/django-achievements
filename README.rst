@@ -28,6 +28,14 @@ To enable ``django-achievements`` for your project you need to add ``achievement
 
     INSTALLED_APPS += ("achievements", )
 
+and execute the database sync command : ::
+
+    ./manage.py syncdb
+
+    #or if you're using south :
+    ./manage.py syncdb --migrate
+
+
 That's all.
 If you want you can also customize the application settings these variables in your  ``settings.py``::
 
