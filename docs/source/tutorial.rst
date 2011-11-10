@@ -92,7 +92,7 @@ the achievements he may have unlocked, here's the way to do that : ::
 Handle the score yourself
 -------------------------
 If by any chance you want to add the score to your User profile, 
-or just want to trigger a notification when the use has unlocked a new achievement, 
+or just want to trigger a notification when the user has unlocked a new achievement, 
 you can connect to the dedicated signal *achievement_unlocked* : ::
     
     # first define your callback :
