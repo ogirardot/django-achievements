@@ -23,7 +23,8 @@ def evaluate_achievement_callback(user, obj, *args, **kwargs):
     # call the evaluate fonction :
     return achievement().evaluate(user, *args, **kwargs)
                                                    
-def construct_callback(obj): 
+def construct_callback(obj):         
+    print "Construction callback from %s : %s.%s " % (obj, obj.__module__, obj.__name__)
     return "%s.%s" % (obj.__module__, obj.__name__)
 
 def get_callback_object(ref):

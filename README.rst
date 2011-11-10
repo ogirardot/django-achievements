@@ -2,7 +2,7 @@
  django-achievements - Django App for user achievements
 =======================================================
 
-:Version: 0.0.2 alpha
+:Version: 0.0.3 beta
 :Source: http://github.com/ssaboum/django-achievements/
 
 django-achievements is an application allowing you to handle 
