@@ -1,10 +1,15 @@
-import importlib, inspect
+import importlib
+import inspect
+import logging
+
 from django.core.exceptions import ImproperlyConfigured   
 from django.contrib.auth.models import User
 from django.conf import settings 
 from django.db import models        
 
 from appconf import AppConf         
+
+logger = logging.getLogger(__name__)
 
 def check_achievement_class(cls):
     return [attribute for attribute in ['name', 'key', 'description', 'bonus', 'evaluate'] if not hasattr(cls, attribute)]      
@@ -22,14 +27,17 @@ def load_classes(classes=settings.ACHIEVEMENT_CLASSES, *args, **kwargs):
             clses = [cls for name, cls in inspect.getmembers(module) if inspect.isclass(cls) and name.endswith('Achievement')]
             for cl in clses:
                 errors = check_achievement_class(cl)
-                if errors:
-                    raise ImproperlyConfigured("Achievement class '%s' in '%s' has missing attributes : %s" %(cl.__name__, module.__name__, ",".join(errors)))
+                if errors:              
+                    message = "Achievement class '%s' in '%s' has missing attributes : %s" %(cl.__name__, module.__name__, ",".join(errors))    
+                    logger.error(message)
+                    raise ImproperlyConfigured(message)
                 else:
-                    print "Registering achievement class %s..." % (cl)
+                    logger.info("Registering achievement class %s..." % (cl))
                     engine.register_achievement(cl)
         except ImproperlyConfigured:
             raise
-        except Exception, exc:
+        except Exception, exc:  
+            logger.error("Exception catched while trying to register achievements class %s " % exc)
             raise ImproperlyConfigured("ACHIEVEMENT_CLASSES attribute must be set properly for them to be loaded into the engine : %s" % exc)   
     
                      

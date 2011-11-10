@@ -1,17 +1,23 @@
-import importlib                                         
+import importlib    
+import logging
+                                     
 from django.db.models.aggregates import Sum
 from achievements.models import Achievement, UserAchievement         
 from achievements.signals import achievement_registered, achievement_unlocked
+
+logger = logging.getLogger(__name__)
 
 def get_user_score(user):      
     """ Compute the score of a given user taking into account their Achievement's bonuses"""
     return UserAchievement.objects.filter(user=user).aggregate(score=Sum('achievement__bonus'))['score']     
 
-def check_achievement_plain(sender, user, key, *args, **kwargs):
+def check_achievement_plain(sender, user, key, *args, **kwargs): 
+    logger.debug("Check achievement called by %s" % sender)
     obj = Achievement.objects.get(key=key)
     if evaluate_achievement_callback(user, obj, *args, **kwargs):
         (user_ach, created) = UserAchievement.objects.get_or_create(achievement=obj, user=user)
-        if created:
+        if created:     
+            logger.info("Achievement %s unlocked for user %s " % (obj, user))
             achievement_unlocked.send(sender=sender, user=user, achievement=obj, *args, **kwargs)
                                         
 def evaluate_achievement_callback(user, obj, *args, **kwargs):
@@ -24,7 +30,7 @@ def evaluate_achievement_callback(user, obj, *args, **kwargs):
     return achievement().evaluate(user, *args, **kwargs)
                                                    
 def construct_callback(obj):         
-    print "Construction callback from %s : %s.%s " % (obj, obj.__module__, obj.__name__)
+    logger.debug("Construction callback from %s : %s.%s " % (obj, obj.__module__, obj.__name__))
     return "%s.%s" % (obj.__module__, obj.__name__)
 
 def get_callback_object(ref):
