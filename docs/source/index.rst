@@ -9,7 +9,13 @@ Welcome to Django-achievements's documentation!
 Contents:
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 2    
+
+   intro
+   tutorial
+   reference
+   contribute
+   credits
 
 
 
