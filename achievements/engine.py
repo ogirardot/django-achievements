@@ -10,7 +10,7 @@ class AchievementEngine(object):
             'name' : cls.name,
             'description' : cls.description, 
             'bonus' : cls.bonus, 
-            'callback': construct_callback(cls.evaluate)})
+            'callback': construct_callback(cls)})
         if not created:
             # update the object if key didn't change :
             obj.name = cls.name

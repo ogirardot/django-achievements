@@ -1,10 +1,11 @@
-import importlib     
+import importlib                                         
+from django.db.models.aggregates import Sum
 from achievements.models import Achievement, UserAchievement         
 from achievements.signals import achievement_registered, achievement_unlocked
 
 def get_user_score(user):      
     """ Compute the score of a given user taking into account their Achievement's bonuses"""
-    return UserAchievement.objects.filter(user=user).aggregate(score=Sum('achievement__bonus'))     
+    return UserAchievement.objects.filter(user=user).aggregate(score=Sum('achievement__bonus'))['score']     
 
 def check_achievement_plain(sender, user, key, *args, **kwargs):
     obj = Achievement.objects.get(key=key)

@@ -30,7 +30,7 @@ To create your first achievement, you only need to create a Python class with th
 * key (unique) : the key string of your achievement, it's what will be used to identify uniquely your achievement.
 * name : The full name of your achievement 
 * description : The full description of what your achievement is all about
-* bonus : the bonus (float) associated to unlocking this achievement
+* bonus : the bonus (integer) associated to unlocking this achievement
 * evaluate(args): the evaluate function is a callback that must return a boolean in order to decide if the achievement has been unlocked.
 
 Here is an example of Achievement definition : ::
