@@ -17,8 +17,8 @@ it to verify if a precise achievement has been unlocked given a context.
 Warning, Warning
 ================
 
-DO NOT USE IN PRODUCTION YET, it is the alpha version
-but any feedback would be appreciated and any help welcomed.
+This is a very young project, yet i'm using it in production, 
+therefore you can rely on it for being fully operational.
 
 Using django-achievements
 =========================
