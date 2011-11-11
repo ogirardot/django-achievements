@@ -59,6 +59,13 @@ To register it into the engine just use the '*ACHIEVEMENT_CLASSES*' attribute in
     ACHIEVEMENT_CLASSES = ['accounts.handlers', 'backend.handlers']
 
 The file where the classes are defined are not important, but try to avoid conflicts of naming by avoiding to use the name *achievements.py*.
+When you have defined a new achievement, for the engine to create the proper objects into your database, execute : ::
+
+    ./manage.py syncdb 
+    # or if you're using south :
+    ./manage.py migrate achievements
+
+This step is mandatory when you're creating new achievement classes and when you update their properties.
 
 ----------------------
 Check it when you need
