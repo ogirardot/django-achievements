@@ -21,6 +21,10 @@ class AchievementEngine(object):
         achievement_registered.send(sender=self, achievement_class=cls)      
                    
     def check_achievement(self, user, key, *args, **kwargs):
+        """ 
+        Check synchronously or asynchronously if according to a specific context 
+        an achievement has been unlocked
+        """
         if user and user.is_authenticated(): 
             if settings.ACHIEVEMENT_USE_CELERY: 
                 # do not try to import if celery is not defined
