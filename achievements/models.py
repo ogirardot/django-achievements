@@ -1,4 +1,5 @@
-import importlib
+import importlib 
+import types
 import inspect
 import logging
 
@@ -15,11 +16,16 @@ def check_achievement_class(cls):
     return [attribute for attribute in ['name', 'key', 'description', 'bonus', 'evaluate'] if not hasattr(cls, attribute)]      
 
 def load_classes(classes=settings.ACHIEVEMENT_CLASSES, *args, **kwargs):  
-	# if we're called during south migration ignore every app 
-	# until we get notified that the achievements app 
-	# was properly loaded
-    if 'app' in kwargs and kwargs['app'] != 'achievements':
-		return
+    # if we're called during south migration ignore every app 
+    # until we get notified that the achievements app 
+    # was properly loaded
+    current_app = kwargs.get('app', None)
+    # this case is when we're using south migrations
+    if type(current_app) is str and current_app != 'achievements':
+        return                                              
+    # otherwise when we use plain syncdb :
+    if type(current_app) is types.ModuleType and current_app.__name__ != 'achievements.models':
+        return
     from achievements.engine import engine
     for achievement_module in classes:
         try:
