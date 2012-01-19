@@ -10,12 +10,14 @@ class AchievementEngine(object):
         (obj, created) = Achievement.objects.get_or_create(key=cls.key,  defaults={
             'name': cls.name,
             'description': cls.description,
+            'category': cls.category,
             'bonus': cls.bonus,
             'callback': construct_callback(cls)})
         if not created:
             # update the object if key didn't change :
             obj.name = cls.name
             obj.description = cls.description
+            obj.category = cls.category
             obj.bonus = cls.bonus
             obj.callback = construct_callback(cls)
             obj.save()
