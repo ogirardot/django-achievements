@@ -7,16 +7,16 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        
+
         # Deleting field 'UserAchievement.profile'
         db.delete_column('achievements_userachievement', 'profile_id')
 
         # Adding field 'UserAchievement.user'
-        db.add_column('achievements_userachievement', 'user', self.gf('django.db.models.fields.related.ForeignKey')(default=None, to=orm['auth.User']), keep_default=False)
+        db.add_column('achievements_userachievement', 'user', self.gf('django.db.models.fields.related.ForeignKey')(default=1, to=orm['auth.User']), keep_default=False)
 
 
     def backwards(self, orm):
-        
+
         # User chose to not deal with backwards NULL issues for 'UserAchievement.profile'
         raise RuntimeError("Cannot reverse this migration. 'UserAchievement.profile' and its values cannot be restored.")
 
