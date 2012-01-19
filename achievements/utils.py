@@ -41,5 +41,5 @@ def construct_callback(obj):
 def get_callback_object(ref):
     module = ".".join(ref.split(".")[:-1])
     class_name = ref.split(".")[-1]
-    importlib.import_module(module)
+    m = importlib.import_module(module)    
     return eval('m.%s' % class_name)
