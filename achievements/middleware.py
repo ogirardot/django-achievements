@@ -7,6 +7,9 @@ from .utils import check_achievement_plain
 
 class AutoAchievementChecker(object):
   def process_response(self, request, response):
+    if 'user' not in request:
+      return response
+
     user = request.user
     try:
       methods = [i.lower() for i in settings.ACHIEVEMENT_MIDDLEWARE_REQUEST_METHODS]
