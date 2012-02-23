@@ -2,7 +2,9 @@ from django.conf import settings
 from achievements.models import Achievement
 from achievements.utils import construct_callback, check_achievement_plain
 from achievements.signals import achievement_registered
+import logging
 
+logger = logging.getLogger(__name__)
 
 class AchievementEngine(object):
     def register_achievement(self, cls):
@@ -36,7 +38,7 @@ class AchievementEngine(object):
             else:
                 check_achievement_plain(self, user, key, *args, **kwargs)
         else:
-            print "trying to check an achievement for an un-logged user"
+            logger.info("trying to check an achievement for an un-logged user")
 
 
 # create the engine
