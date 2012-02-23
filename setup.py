@@ -11,7 +11,7 @@ if sys.version_info < (2, 7):
 setup(
     name="django-achievements",
     packages=["achievements", "achievements.migrations", "achievements.templatetags"],
-    version="0.0.7",
+    version="0.0.8",
     description="Django application to deal with achievements and rewards unlocked by users",
     author="Olivier Girardot",
     author_email="ssaboum@gmail.com",
