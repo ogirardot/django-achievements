@@ -2,7 +2,7 @@ import importlib
 import logging
 
 from django.db.models.aggregates import Sum
-from achievements.models import Achievement, UserAchievement
+from achievements.models import Achievement, UserAchievement, User
 from achievements.signals import achievement_unlocked
 
 logger = logging.getLogger(__name__)
@@ -12,6 +12,10 @@ def get_user_score(user):
     """ Compute the score of a given user taking into account their Achievement's bonuses"""
     return UserAchievement.objects.filter(user=user).aggregate(score=Sum('achievement__bonus'))['score']
 
+
+def get_user_achievements(user):
+    """Retrieves all the user achievements."""
+    return User.objects.get(id=user.id).achievements_set.all()
 
 def check_achievement_plain(sender, user, key, *args, **kwargs):
     logger.debug("Check achievement called by %s" % sender)
