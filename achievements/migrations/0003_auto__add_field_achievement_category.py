@@ -7,21 +7,15 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-
-        # Deleting field 'UserAchievement.profile'
-        db.delete_column('achievements_userachievement', 'profile_id')
-
-        # Adding field 'UserAchievement.user'
-        db.add_column('achievements_userachievement', 'user', self.gf('django.db.models.fields.related.ForeignKey')(default=1, to=orm['auth.User']), keep_default=False)
+        
+        # Adding field 'Achievement.category'
+        db.add_column('achievements_achievement', 'category', self.gf('django.db.models.fields.CharField')(default='', max_length=75), keep_default=False)
 
 
     def backwards(self, orm):
-
-        # User chose to not deal with backwards NULL issues for 'UserAchievement.profile'
-        raise RuntimeError("Cannot reverse this migration. 'UserAchievement.profile' and its values cannot be restored.")
-
-        # Deleting field 'UserAchievement.user'
-        db.delete_column('achievements_userachievement', 'user_id')
+        
+        # Deleting field 'Achievement.category'
+        db.delete_column('achievements_achievement', 'category')
 
 
     models = {
@@ -29,6 +23,7 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'Achievement'},
             'bonus': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
             'callback': ('django.db.models.fields.TextField', [], {}),
+            'category': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '75'}),
             'description': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'key': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '75'}),
@@ -36,7 +31,7 @@ class Migration(SchemaMigration):
         },
         'achievements.userachievement': {
             'Meta': {'object_name': 'UserAchievement'},
-            'achievement': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['achievements.Achievement']"}),
+            'achievement': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'userachievements'", 'to': "orm['achievements.Achievement']"}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'registered_at': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             'user': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['auth.User']"})
