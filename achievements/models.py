@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 
 
 def check_achievement_class(cls):
-    return [attribute for attribute in ['name', 'key', 'description', 'bonus', 'evaluate', 'category'] if not hasattr(cls, attribute)]
+    return [attribute for attribute in ['name', 'key', 'description', 'bonus', 'evaluate'] if not hasattr(cls, attribute)]
 
 
 def load_classes(classes=settings.ACHIEVEMENT_CLASSES, *args, **kwargs):
