@@ -16,9 +16,9 @@ of course you can also download it directly from PyPi (http://pypi.python.org/py
 Then to install it on your Django project just add, '*achievements*' to your *INSTALLED_APPS* and synchronize your database
 with it. If you're using *South*, you need to execute *django-achievements*'s migrations : ::
 
-    ./manage.py syncdb 
+    ./manage.py syncdb
     # or with south :
-    ./manage.py syncdb --migrate 
+    ./manage.py syncdb --migrate
 
 And just with that, you're all set to create your first achievement.
 
@@ -28,7 +28,7 @@ Create your first achievement
 To create your first achievement, you only need to create a Python class with the following attributes :
 
 * key (unique) : the key string of your achievement, it's what will be used to identify uniquely your achievement.
-* name : The full name of your achievement 
+* name : The full name of your achievement
 * description : The full description of what your achievement is all about
 * bonus : the bonus (integer) associated to unlocking this achievement
 * evaluate(args): the evaluate function is a callback that must return a boolean in order to decide if the achievement has been unlocked.
@@ -61,7 +61,7 @@ To register it into the engine just use the '*ACHIEVEMENT_CLASSES*' attribute in
 The file where the classes are defined are not important, but try to avoid conflicts of naming by avoiding to use the name *achievements.py*.
 When you have defined a new achievement, for the engine to create the proper objects into your database, execute : ::
 
-    ./manage.py syncdb 
+    ./manage.py syncdb
     # or if you're using south :
     ./manage.py migrate achievements
 
@@ -70,7 +70,7 @@ This step is mandatory when you're creating new achievement classes and when you
 ----------------------
 Check it when you need
 ----------------------
-The engine now is aware of the achievements you want to handle. On startup it will create the achievements objects into your database, 
+The engine now is aware of the achievements you want to handle. On startup it will create the achievements objects into your database,
 and store the path to the callback you want to associate it with.
 
 Now the engine's running on startup of your application and you need a way to call it for it to check if given a precise context an achievement will
@@ -83,8 +83,22 @@ Of course *my_current_user* can be a User object you extracted from database or 
 
 Don't hesitate to check achievements even for anonymous users, it won't be taken into account anyway.
 
-The achievement *key* is the most important part as it will tell the engine with *callback* to call and if you have other arguments your achievement may need to evaluate, given the context if the achievement has been unlocked, 
+The achievement *key* is the most important part as it will tell the engine with *callback* to call and if you have other arguments your achievement may need to evaluate, given the context if the achievement has been unlocked,
 you can pass them as optional arguments, they will be transmitted to the *Achievement* class.
+
+---------------
+Check automatic
+---------------
+Achievements includes a handy middleware class for automatic achievement checks.
+
+Register the middleware class in your settings as usual : ::
+
+    MIDDLEWARE_CLASSES += ['achievements.middleware.AutoAchievementChecker']
+
+Define the http request methods (get, post, put, delete) on which the automatic middleware checker should be run : ::
+
+    # for example check on changing http request methods only
+    ACHIEVEMENT_MIDDLEWARE_REQUEST_METHODS = ['post', 'put', 'delete']
 
 -------------------------
 Get the score of any user
@@ -98,10 +112,10 @@ the achievements he may have unlocked, here's the way to do that : ::
 -------------------------
 Handle the score yourself
 -------------------------
-If by any chance you want to add the score to your User profile, 
-or just want to trigger a notification when the user has unlocked a new achievement, 
+If by any chance you want to add the score to your User profile,
+or just want to trigger a notification when the user has unlocked a new achievement,
 you can connect to the dedicated signal *achievement_unlocked* : ::
-    
+
     # first define your callback :
     def update_score(sender, user, achievement, *args, **kwargs):
         print "Gotcha"
