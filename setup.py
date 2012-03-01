@@ -1,11 +1,10 @@
 from distutils.core import setup
-
 import sys
 
 INSTALL_REQUIRES = ["django-appconf>=0.4.1"]
 
 if sys.version_info < (2, 7):
-  INSTALL_REQUIRES += ["importlib>=1.0.2"]
+    INSTALL_REQUIRES += ["importlib>=1.0.2"]
 
 
 setup(
